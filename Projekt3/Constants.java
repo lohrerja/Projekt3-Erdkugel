@@ -11,4 +11,6 @@ public class Constants {
     public static int FPS = 100;
     public static double TPF = 1.0 / FPS;
 
+    public static double TIMESCALE = 1.0;
+
 }
