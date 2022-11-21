@@ -29,7 +29,10 @@ public class GraphicsContent extends Animation{
 }
 
 
-public class GraphicsContentPanel extends JPanel {
+class GraphicsContentPanel extends JPanel {
+
+    private final ApplicationTime t;
+    public GraphicsContentPanel(ApplicationTime thread) {this.t=thread;}
 
     protected void paintComponent(Graphics g, Object thread) {
 
@@ -50,10 +53,6 @@ public class GraphicsContentPanel extends JPanel {
         g.drawLine(originX + width / 2, originY , originX + width / 2, originY + height);
         //private final ApplicationTime t;
 
-	    public GraphicsContent(ApplicationTime thread) {
-            this.t = thread;
-        }
-
         // set this panel's preferred size for auto-sizing the container JFrame
         /*public Dimension getPreferredSize() {
             return new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
@@ -61,7 +60,6 @@ public class GraphicsContentPanel extends JPanel {
 
         // drawing operations should be done in this method
         //@Override
-        protected void paintComponent(Graphics g) {
 
             super.paintComponent(g);
             double time = t.getTimeInSeconds();
@@ -87,5 +85,3 @@ public class GraphicsContentPanel extends JPanel {
         }
 
     }
-
-}

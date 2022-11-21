@@ -1,9 +1,8 @@
 package Projekt3;
 
-
 import java.util.Arrays;
 
-public class Matrix {
+public class Matrix{
     public static void main(String[] args){
 
         float[][] J = new float[2][2];      //Java coordinate system
