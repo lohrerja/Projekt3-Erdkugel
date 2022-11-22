@@ -5,6 +5,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import utils.ApplicationTime;
+import Projekt3.*;
+
+import static Projekt3.Constants.*;
 
 public class GraphicsContent extends Animation{
 
@@ -35,7 +38,7 @@ class GraphicsContentPanel extends JPanel {
 
     private final ApplicationTime t;
     public GraphicsContentPanel(ApplicationTime thread) {this.t=thread;}
-    public Dimension getPreferredSize() { return new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);}
+    public Dimension getPreferredSize() { return new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);}
 
     protected void paintComponent(Graphics g) {
 
@@ -50,13 +53,25 @@ class GraphicsContentPanel extends JPanel {
         int height = this.getHeight();
 
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         g.setColor(Color.BLACK);
         g.drawLine(originX, originY + height / 2, originX + width - 1, originY + height / 2);
 
         g.setColor(Color.BLACK);
         g.drawLine(originX + width / 2, originY , originX + width / 2, originY + height);
+
+        g2d.setStroke(new BasicStroke(5.0f));
+
+        g.setColor(Color.red);
+        g.drawLine(originX + width / 2, originY + height /2, originX + width , originY + height);
+
+        g.setColor(Color.BLUE);
+        g.drawLine(originX + width / 2, originY , originX + width / 2, originY + height/2);
+
+        g.setColor(Color.green);
+        g.drawLine(originX + width /2, originY + height / 2, originX + width , originY + height / 2);
+
 
         // set this panel's preferred size for auto-sizing the container JFrame
         /*public Dimension getPreferredSize() {
@@ -66,11 +81,9 @@ class GraphicsContentPanel extends JPanel {
         // drawing operations should be done in this method
 
 
-
-
             for (int i = 0; i < 100; i++) {
                 g.setColor(Color.BLUE);
-                g.fillOval((int) f(2 * Math.PI * i / 100)[0] + 25, (int) f(2 * Math.PI * i / 100)[1] + 15, 4, 4);
+                g.fillOval((int)  f(2 * Math.PI * i / 100)[0] + 25, (int) f(2 * Math.PI * i / 100)[1] + 15, 4, 4);
             }
 
             double[] posVector = f(time);
