@@ -15,12 +15,14 @@ public class GraphicsContent extends Animation{
 
         // Create main frame (window)
 
-        JFrame frame = new JFrame("Mathematik und Simulation");
+        JFrame frame = new JFrame("Projekt3 - Flugzeugstrecke");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new GraphicsContentPanel(applicationTimeThread);
         frame.add(panel);
         frame.pack(); // adjusts size of the JFrame to fit the size of it's components
         frame.setVisible(true);
+        frame.setLocation(2,2);
+        frame.setVisible( true );
 
         frames.add(frame);
         return frames;
@@ -33,11 +35,12 @@ class GraphicsContentPanel extends JPanel {
 
     private final ApplicationTime t;
     public GraphicsContentPanel(ApplicationTime thread) {this.t=thread;}
+    public Dimension getPreferredSize() { return new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);}
 
-    protected void paintComponent(Graphics g, Object thread) {
+    protected void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-
+        double time = t.getTimeInSeconds();
         Graphics2D g2d;
         g2d = (Graphics2D) g;
 
@@ -46,12 +49,14 @@ class GraphicsContentPanel extends JPanel {
         int width = this.getWidth();
         int height = this.getHeight();
 
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
         g.setColor(Color.BLACK);
         g.drawLine(originX, originY + height / 2, originX + width - 1, originY + height / 2);
 
         g.setColor(Color.BLACK);
         g.drawLine(originX + width / 2, originY , originX + width / 2, originY + height);
-        //private final ApplicationTime t;
 
         // set this panel's preferred size for auto-sizing the container JFrame
         /*public Dimension getPreferredSize() {
@@ -59,13 +64,10 @@ class GraphicsContentPanel extends JPanel {
         }*/
 
         // drawing operations should be done in this method
-        //@Override
 
-            super.paintComponent(g);
-            double time = t.getTimeInSeconds();
 
-            g.setColor(Color.LIGHT_GRAY);
-            g.fillRect(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
+
             for (int i = 0; i < 100; i++) {
                 g.setColor(Color.BLUE);
                 g.fillOval((int) f(2 * Math.PI * i / 100)[0] + 25, (int) f(2 * Math.PI * i / 100)[1] + 15, 4, 4);

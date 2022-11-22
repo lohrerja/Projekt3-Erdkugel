@@ -3,8 +3,7 @@ package Projekt3;
 import java.util.Arrays;
 import java.lang.Math;
 
-import static Projekt3.Constants.WINDOW_HEIGHT;
-import static Projekt3.Constants.WINDOW_WIDTH;
+import static Projekt3.Constants.*;
 
 public class Projektionsmatrix{
 
