@@ -10,10 +10,10 @@ public class Projektionsmatrix{
 
     public static void main(String[] args) {
         //Degree
-        double a = 90;
+        double a = 135;
         System.out.println(Math.cos(Math.toRadians(a)));
 
-        float s1 = 1F/2F;
+        float s1 = (float) (1/Math.sqrt(2));
 
         float[][] Base = new float[2][4];
         Base[0][0] = (float) (-s1 * Math.sin(Math.toRadians(a)));
