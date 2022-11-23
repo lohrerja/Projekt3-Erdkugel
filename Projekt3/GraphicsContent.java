@@ -25,7 +25,6 @@ public class GraphicsContent extends Animation{
         frame.pack(); // adjusts size of the JFrame to fit the size of it's components
         frame.setVisible(true);
         frame.setLocation(2,2);
-        frame.setVisible( true );
 
         frames.add(frame);
         return frames;
@@ -52,8 +51,6 @@ class GraphicsContentPanel extends JPanel {
         int width = this.getWidth();
         int height = this.getHeight();
 
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         g.setColor(Color.BLACK);
         g.drawLine(originX, originY + height / 2, originX + width - 1, originY + height / 2);
@@ -61,10 +58,29 @@ class GraphicsContentPanel extends JPanel {
         g.setColor(Color.BLACK);
         g.drawLine(originX + width / 2, originY , originX + width / 2, originY + height);
 
-        g2d.setStroke(new BasicStroke(5.0f));
+        g.setColor(Color.BLACK);
+        g.drawLine(originX + width * 5/12, originY + height/2, originX + width * 5/12, originY + height * 8/15 );
+        g.setFont(new Font("Arial", Font.PLAIN, 10));
+        String subtitle = "-0,2";
+        g.drawString(subtitle, originX + width * 5/12 - 5, originY + height * 7/13 + 5);
 
-        g.setColor(Color.red);
-        g.drawLine(originX + width / 2, originY + height /2, originX + width , originY + height);
+        g.setColor(Color.BLACK);
+        g.drawLine(originX + width * 7/12, originY + height/2, originX + width * 7/12, originY + height * 8/15 );
+        g.setFont(new Font("Serif", Font.PLAIN, 10));
+        String message = "0,2";
+        g.drawString(message, originX + width * 7/12 - 5, originY + height * 7/13 + 5);
+
+        g.setColor(Color.BLACK);
+        g.drawLine(originX + width * 6/13, originY + height * 7/12, originX + width / 2, originY + height * 7/12 );
+        g.drawString(subtitle, originX + width * 6/13 - 5, originY + height * 7/12 - 5);
+
+        g.setColor(Color.BLACK);
+        g.drawLine(originX + width * 6/13, originY + height * 5/12, originX + width / 2, originY + height * 5/12 );
+        g.setFont(new Font("Arial", Font.PLAIN, 10));
+        g.drawString(message, originX + width * 6/13 - 5, originY + height * 5/12 - 5);
+
+
+        g2d.setStroke(new BasicStroke(3.0f));
 
         g.setColor(Color.BLUE);
         g.drawLine(originX + width / 2, originY , originX + width / 2, originY + height/2);
@@ -72,31 +88,19 @@ class GraphicsContentPanel extends JPanel {
         g.setColor(Color.green);
         g.drawLine(originX + width /2, originY + height / 2, originX + width , originY + height / 2);
 
+        g.setColor(Color.red);
+        g.drawLine(originX + width / 2, originY + height /2, originX + width , originY + height);
 
-        // set this panel's preferred size for auto-sizing the container JFrame
-        /*public Dimension getPreferredSize() {
-            return new Dimension(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
-        }*/
 
         // drawing operations should be done in this method
+        g2d.setStroke(new BasicStroke(2.0f));
 
+        g.setColor(Color.lightGray);
+        g.drawOval(0,0,400,100);
 
-            for (int i = 0; i < 100; i++) {
-                g.setColor(Color.BLUE);
-                g.fillOval((int)  f(2 * Math.PI * i / 100)[0] + 25, (int) f(2 * Math.PI * i / 100)[1] + 15, 4, 4);
-            }
+        g.setColor(Color.gray);
+        g.drawArc(0,0,400,100, -180, 180);
 
-            double[] posVector = f(time);
-
-            g.setColor(Color.RED);
-            g.fillOval((int) posVector[0] + 25 - 15, (int) posVector[1] + 15 - 15, 30, 30);
-        }
-
-        double[] f(double t) {
-            double[] result = new double[2];
-            result[0] = 400 + 200 * Math.cos(t);
-            result[1] = 200 + 100 * Math.sin(t);
-            return result;
         }
 
     }
