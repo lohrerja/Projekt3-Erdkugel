@@ -3,14 +3,14 @@ package Projekt3;
 import java.util.Arrays;
 
 public class Matrix{
-    public static void main(String[] args){
+    public Matrix(int col, int row){
 
-        float[][] J = new float[2][2];      //Java coordinate system
-        J[0][0] = 1;
-        J[1][0] = 0;
-        J[0][1] = 0;
-        J[1][1] = -1;
-        System.out.println(Arrays.deepToString(J));
+        float[][] m = new float[col][row];      //Java coordinate system
+        m[0][0] = 1;
+        m[1][0] = 0;
+        m[0][1] = 0;
+        m[1][1] = -1;
+        System.out.println(Arrays.deepToString(m));
 
         float[][] P = new float[2][3];      //Projectionmatrix
         P[0][0] = (float) (-1.0/2.0);
@@ -21,9 +21,10 @@ public class Matrix{
         P[1][2] = 1;
         System.out.println(Arrays.deepToString(P));
 
-        float[][] M = multiMatrix(J, P);    //Method for Matrix M
+        float[][] M = multiMatrix(m, P);    //Method for Matrix M
         System.out.println(Arrays.deepToString(M));     //adjusted projectionmatrix for java
     }
+
 
     public static float[][] multiMatrix(float[][] J, float[][] P) {     //Method for Matrixmultiplication
 
@@ -45,4 +46,4 @@ public class Matrix{
         return index;
     }
 }
-
+//not necessairy but can keep
