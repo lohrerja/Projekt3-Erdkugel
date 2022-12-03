@@ -54,10 +54,10 @@ class GraphicsContentPanel extends JPanel {
 
         Vector4d origin = new Vector4d(0,0,0,1);
 
-        Vector4d x_axis = new Vector4d(1, 0,0, 1);
+        Vector4d x_axis = new Vector4d(100, 0,0, 1);
         // get projection from projectionmatrix
 
-        Projektionmatrix p = new Projektionmatrix( 135, (int) (1.0/Math.sqrt(2.0)));
+        Projectionmatrix p = new Projectionmatrix(135.0, (float) (1.0f/Math.sqrt(2.0f)));
 
         Vector2d x_point = p.multiVec(x_axis);
         Vector2d origin2d = p.multiVec(origin);
@@ -67,7 +67,7 @@ class GraphicsContentPanel extends JPanel {
 
         Vector4d base = new Vector4d(0,0,0,1);
 
-        Vector4d y_axis = new Vector4d(0, 1,0, 1);
+        Vector4d y_axis = new Vector4d(0, 100,0, 1);
         // get projection from projectionmatrix
 
         Vector2d y_point = p.multiVec(y_axis);
@@ -78,7 +78,7 @@ class GraphicsContentPanel extends JPanel {
 
         Vector4d begin = new Vector4d(0,0,0,1);
 
-        Vector4d z_axis = new Vector4d(0, 0,1, 1);
+        Vector4d z_axis = new Vector4d(0, 0,100, 1);
         // get projection from projectionmatrix
 
         Vector2d z_point = p.multiVec(z_axis);
@@ -166,44 +166,29 @@ class GraphicsContentPanel extends JPanel {
         //use same projectionmatrix as above: create a calculation class
         g2d.setStroke(new BasicStroke(2.0f));
 
-        g.setColor(Color.lightGray);
-        g.drawOval(0,0,400,100);
+        g.setColor(Color.lightGray);//TODO create a funktion for Vektor4d that is in all
+        //TODO create a variable for how often it will be around an axis
 
-        int r = 1;
+        float step = (float) (2*Math.PI/ Constants.NUMSTEPS);
+        float rep = (float) (2*Math.PI/ Constants.REPEAT);
+        int r = 200;
+        //phi = horizontal; tet = vertical
+
+
         //vertical
-        for(float phi = 0; phi == 0; phi++){
-            for(float tet = 0; tet <= 2*Math.PI; tet++){
-                Vector4d w = new Vector4d((float) (r * Math.cos(tet) * Math.cos(phi)), (float) (r * Math.cos(tet) * Math.sin(phi)), (float) (r * Math.sin(tet)),1);
-
-                Vector2d w2d = p.multiVec(w);
-
-                g.fillOval(w2d.roundX(), w2d.roundY(), 4, 4);
-            }
-        }
-
-        for(float phi = 0; phi <= 2; phi++){
-            for(float tet = 0; tet <= 2*Math.PI; tet++){
+        for(float phi = 0; phi <= 2*Math.PI; phi = phi + rep){
+            for(float tet = 0; tet <= 2*Math.PI; tet = tet + step){
                 Vector4d e = new Vector4d((float) (r * Math.cos(tet) * Math.cos(phi)), (float) (r * Math.cos(tet) * Math.sin(phi)), (float) (r * Math.sin(tet)),1);
 
                 Vector2d e2d = p.multiVec(e);
 
                 g.fillOval(e2d.roundX(), e2d.roundY(), 4, 4);
-
             }
         }
 
-        for(float phi = 0; phi >= -2; phi--){
-            for(float tet = 0; tet <= 2*Math.PI; tet++){
-                Vector4d t = new Vector4d((float) (r * Math.cos(tet) * Math.cos(phi)), (float) (r * Math.cos(tet) * Math.sin(phi)), (float) (r * Math.sin(tet)),1);
-
-                Vector2d t2d = p.multiVec(t);
-
-                g.fillOval(t2d.roundX(), t2d.roundY(), 4, 4);
-            }
-        }
         //horizontal
-        for(float phi = 0; phi <= 2*Math.PI; phi++){
-            for(float tet = 0; tet <= 2 ; tet++){
+        for(float phi = 0; phi <= 2*Math.PI; phi = phi + step){
+            for(float tet = -0.5f; tet <= 0.5f*Math.PI; tet = tet + rep){
                 Vector4d u = new Vector4d((float) (r * Math.cos(tet) * Math.cos(phi)), (float) (r * Math.cos(tet) * Math.sin(phi)), (float) (r * Math.sin(tet)),1);
 
                 Vector2d u2d = p.multiVec(u);
@@ -212,19 +197,10 @@ class GraphicsContentPanel extends JPanel {
             }
         }
 
-        for(float phi = 0; phi <= 2*Math.PI; phi++) {
-            for (float tet = 0; tet >= -2 ; tet--) {
-                Vector4d s = new Vector4d((float) (r * Math.cos(tet) * Math.cos(phi)), (float) (r * Math.cos(tet) * Math.sin(phi)), (float) (r * Math.sin(tet)),1);
-
-                Vector2d s2d = p.multiVec(s);
-
-                g.fillOval(s2d.roundX(), s2d.roundY(), 4, 4);
-            }
-        }
-
         //Äquator
-        for(float phi = 0; phi <= 2*Math.PI; phi++){
-            g.setColor(Color.BLUE);
+        g.setColor(Color.CYAN);
+        for(float phi = 0; phi <= 2*Math.PI; phi = phi + step){
+
 
             Vector4d ae = new Vector4d((float) (r * Math.cos(phi)), (float) (r * Math.sin(phi)), (float) (0),1);
 
@@ -234,13 +210,57 @@ class GraphicsContentPanel extends JPanel {
         }
 
 
+        //in front
+
+        g.setColor(Color.BLUE);
+        for(float phi = (float) (-0.3f*Math.PI); phi <= 0.7f*Math.PI; phi = phi + step){
 
 
+            Vector4d ae = new Vector4d((float) (r * Math.cos(phi)), (float) (r * Math.sin(phi)), (float) (0),1);
 
+            Vector2d ae2d = p.multiVec(ae);
 
-        g.setColor(Color.darkGray);
-        g.drawArc(0,0,400,100, -180, 180);
+            g.fillOval(ae2d.roundX(), ae2d.roundY(), 4, 4);
+        }
+        g.setColor(Color.gray);
 
+        //vertical
+        for(float phi = (float) (-0.3f*Math.PI); phi <= 0.7f*Math.PI; phi = phi + rep){
+            for(float tet = (float) (-0.5f*Math.PI); tet <= 0.5f*Math.PI; tet = tet + step){
+                Vector4d e = new Vector4d((float) (r * Math.cos(tet) * Math.cos(phi)), (float) (r * Math.cos(tet) * Math.sin(phi)), (float) (r * Math.sin(tet)),1);
+
+                Vector2d e2d = p.multiVec(e);
+
+                g.fillOval(e2d.roundX(), e2d.roundY(), 4, 4);
+
+            }
         }
 
-}
+        //horizontal
+        for(float phi = (float) (-0.3f*Math.PI); phi <= 0.7f*Math.PI; phi = phi + step){
+            for(float tet = -0.5f; tet <= 0.5f*Math.PI; tet = tet + rep){
+                Vector4d u = new Vector4d((float) (r * Math.cos(tet) * Math.cos(phi)), (float) (r * Math.cos(tet) * Math.sin(phi)), (float) (r * Math.sin(tet)),1);
+
+                Vector2d u2d = p.multiVec(u);
+
+                g.fillOval(u2d.roundX(), u2d.roundY(), 4, 4);
+            }
+        }
+
+
+        double[] posVector = f(time);
+
+        g.setColor(Color.RED);
+        g.fillOval((int) posVector[0] + 25 - 15, (int) posVector[1] + 15 - 15, 30, 30);
+    }
+
+    double[] f(double t) {
+        double[] result = new double[2];
+        result[0] = 400 + 200 * Math.cos(t);
+        result[1] = 200 + 100 * Math.sin(t);
+        return result;
+    }
+
+    }
+
+

@@ -12,4 +12,8 @@ public class Constants {
     public static double TPF = 1.0 / FPS;
 
     public static double TIMESCALE = 1.0;
+
+    public static double NUMSTEPS = 100;
+
+    public static double REPEAT = 6;
 }
