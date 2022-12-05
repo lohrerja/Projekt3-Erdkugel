@@ -45,12 +45,8 @@ class GraphicsContentPanel extends JPanel {
         Graphics2D g2d;
         g2d = (Graphics2D) g;
 
-        int originX = 0;
-        int originY = 0;
-        int width = this.getWidth();
-        int height = this.getHeight();
         //intension to draw axis: define 3d points
-        g.setColor(Color.BLACK);
+        g.setColor(Color.red);
 
         Vector4d origin = new Vector4d(0,0,0,1);
 
@@ -65,6 +61,7 @@ class GraphicsContentPanel extends JPanel {
         g.drawLine(origin2d.roundX(), origin2d.roundY(), x_point.roundX(), x_point.roundY());
 
 
+        g.setColor(Color.green);
         Vector4d base = new Vector4d(0,0,0,1);
 
         Vector4d y_axis = new Vector4d(0, 100,0, 1);
@@ -76,6 +73,7 @@ class GraphicsContentPanel extends JPanel {
         g.drawLine(base2d.roundX(), base2d.roundY(), y_point.roundX(), y_point.roundY());
 
 
+        g.setColor(Color.blue);
         Vector4d begin = new Vector4d(0,0,0,1);
 
         Vector4d z_axis = new Vector4d(0, 0,100, 1);
@@ -86,79 +84,7 @@ class GraphicsContentPanel extends JPanel {
 
         g.drawLine(begin2d.roundX(), begin2d.roundY(), z_point.roundX(), z_point.roundY());
 
-        /*g.setColor(Color.BLACK);
-        g.drawLine(originX, originY + height / 2, originX + width - 1, originY + height / 2);
 
-        g.setColor(Color.BLACK);
-        g.drawLine(originX + width / 2, originY , originX + width / 2, originY + height);*/
-
-
-        g.setColor(Color.red);
-
-        Vector4d start = new Vector4d(0.5F,0,0,1);
-
-        Vector2d start2d = p.multiVec(start);
-
-        g.drawLine(start2d.roundX(), start2d.roundY(), x_point.roundX(), x_point.roundY());
-
-
-        g.setColor(Color.green);
-
-        Vector4d satan = new Vector4d(0,0.5F,0,1);
-
-        Vector2d satan2d = p.multiVec(satan);
-
-        g.drawLine(satan2d.roundX(), satan2d.roundY(), y_point.roundX(), y_point.roundY());
-
-
-        g.setColor(Color.blue);
-
-        Vector4d beginning = new Vector4d(0,0, 0.5F,1);
-
-        Vector2d beginning2d = p.multiVec(beginning);
-
-        g.drawLine(beginning2d.roundX(), beginning2d.roundY(), z_point.roundX(), z_point.roundY());
-
-        //to check if it's the center
-        Vector4d b = new Vector4d(0,0, 0,1);
-
-        Vector2d b2d = p.multiVec(b);
-
-        g.fillOval(b2d.roundX(),b2d.roundY(),2,2);
-
-        /*g2d.setStroke(new BasicStroke(3.0f));
-
-        g.setColor(Color.BLUE);
-        g.drawLine(originX + width / 2, originY , originX + width / 2, originY + height/2);
-
-        g.setColor(Color.green);
-        g.drawLine(originX + width /2, originY + height / 2, originX + width , originY + height / 2);
-
-        g.setColor(Color.red);
-        g.drawLine(originX + width / 2, originY + height /2, originX + width , originY + height);*/
-
-
-
-        /*g.setColor(Color.BLACK);
-        g.drawLine(originX + width * 5/12, originY + height/2, originX + width * 5/12, originY + height * 8/15 );
-        g.setFont(new Font("Arial", Font.PLAIN, 10));
-        String subtitle = "-0,2";
-        g.drawString(subtitle, originX + width * 5/12 - 5, originY + height * 7/13 + 5);
-
-        g.setColor(Color.BLACK);
-        g.drawLine(originX + width * 7/12, originY + height/2, originX + width * 7/12, originY + height * 8/15 );
-        g.setFont(new Font("Serif", Font.PLAIN, 10));
-        String message = "0,2";
-        g.drawString(message, originX + width * 7/12 - 5, originY + height * 7/13 + 5);
-
-        g.setColor(Color.BLACK);
-        g.drawLine(originX + width * 6/13, originY + height * 7/12, originX + width / 2, originY + height * 7/12 );
-        g.drawString(subtitle, originX + width * 6/13 - 5, originY + height * 7/12 - 5);
-
-        g.setColor(Color.BLACK);
-        g.drawLine(originX + width * 6/13, originY + height * 5/12, originX + width / 2, originY + height * 5/12 );
-        g.setFont(new Font("Arial", Font.PLAIN, 10));
-        g.drawString(message, originX + width * 6/13 - 5, originY + height * 5/12 - 5);*/
 
 
 
@@ -173,7 +99,6 @@ class GraphicsContentPanel extends JPanel {
         float rep = (float) (2*Math.PI/ Constants.REPEAT);
         int r = 200;
         //phi = horizontal; tet = vertical
-
 
         //vertical
         for(float phi = 0; phi <= 2*Math.PI; phi = phi + rep){
@@ -201,7 +126,6 @@ class GraphicsContentPanel extends JPanel {
         g.setColor(Color.CYAN);
         for(float phi = 0; phi <= 2*Math.PI; phi = phi + step){
 
-
             Vector4d ae = new Vector4d((float) (r * Math.cos(phi)), (float) (r * Math.sin(phi)), (float) (0),1);
 
             Vector2d ae2d = p.multiVec(ae);
@@ -215,7 +139,6 @@ class GraphicsContentPanel extends JPanel {
         g.setColor(Color.BLUE);
         for(float phi = (float) (-0.3f*Math.PI); phi <= 0.7f*Math.PI; phi = phi + step){
 
-
             Vector4d ae = new Vector4d((float) (r * Math.cos(phi)), (float) (r * Math.sin(phi)), (float) (0),1);
 
             Vector2d ae2d = p.multiVec(ae);
@@ -225,14 +148,13 @@ class GraphicsContentPanel extends JPanel {
         g.setColor(Color.gray);
 
         //vertical
-        for(float phi = (float) (-0.3f*Math.PI); phi <= 0.7f*Math.PI; phi = phi + rep){
+        for(float phi = (float) (-1.0f/3.0f*Math.PI); phi <= 2.0f/3.0f*Math.PI; phi = phi + rep){//set it to -0.periot 3
             for(float tet = (float) (-0.5f*Math.PI); tet <= 0.5f*Math.PI; tet = tet + step){
                 Vector4d e = new Vector4d((float) (r * Math.cos(tet) * Math.cos(phi)), (float) (r * Math.cos(tet) * Math.sin(phi)), (float) (r * Math.sin(tet)),1);
 
                 Vector2d e2d = p.multiVec(e);
 
                 g.fillOval(e2d.roundX(), e2d.roundY(), 4, 4);
-
             }
         }
 
@@ -251,13 +173,27 @@ class GraphicsContentPanel extends JPanel {
         double[] posVector = f(time);
 
         g.setColor(Color.RED);
-        g.fillOval((int) posVector[0] + 25 - 15, (int) posVector[1] + 15 - 15, 30, 30);
+        g.fillOval((int) posVector[0] + base2d.roundX() , (int) posVector[1]+base2d.roundY(), 20, 20);
     }
 
     double[] f(double t) {
+
+        Projectionmatrix p = new Projectionmatrix(135.0, (float) (1.0f/Math.sqrt(2.0f)));
+        float step = (float) (Math.PI/ Constants.NUMSTEPS);
+        float rep = (float) (Math.PI/ Constants.REPEAT);
+        int r = 200;
+
         double[] result = new double[2];
-        result[0] = 400 + 200 * Math.cos(t);
-        result[1] = 200 + 100 * Math.sin(t);
+        for(float phi = 0; phi <= Math.PI; phi = phi + rep){
+            for(float tet = 0; tet <= Math.PI; tet = tet + step){
+                Vector4d e = new Vector4d((float) (Math.cos(tet) * Math.cos(phi)), (float) ( Math.cos(tet) * Math.sin(phi)), (float) ( Math.sin(tet)), 1);
+
+                Vector2d e2d = p.multiVec(e);
+
+                result[0] = e2d.roundX()/2 + e2d.roundY()/2 * Math.cos(t);
+                result[1] = e2d.roundX()/2 + e2d.roundY()/2 * Math.sin(t);
+            }
+        }
         return result;
     }
 
