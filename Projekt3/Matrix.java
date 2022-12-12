@@ -4,6 +4,9 @@ public class Matrix{
     public int col;
     public int row;
     public float[][] m;
+    public Vector3d col1;
+    public Vector3d col2;
+    public Vector3d col3;
 
     public Matrix(int row, int col) {
         this.row = row;
@@ -14,8 +17,16 @@ public class Matrix{
     public Matrix(Vector3d col1, Vector3d col2, Vector3d col3) {
         this.row = 3;
         this.col = 3;
+
+        this.col1 = col1;
+        this.col2 = col2;
+        this.col3 = col3;
+        this.col = (this.col1,this.col2,this.col3);
+
         this.m = new float[this.row][this.col];
         //TODO fill m with col1-3
+
+
     }
     public Vector3d multiVec(Vector3d v){
         Vector3d u = new Vector3d(0,0,0);

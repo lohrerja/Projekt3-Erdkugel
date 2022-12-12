@@ -92,8 +92,7 @@ class GraphicsContentPanel extends JPanel {
         //use same projectionmatrix as above: create a calculation class
         g2d.setStroke(new BasicStroke(2.0f));
 
-        g.setColor(Color.lightGray);//TODO create a funktion for Vektor4d that is in all
-        //TODO create a variable for how often it will be around an axis
+        g.setColor(Color.lightGray);
 
         float step = (float) (2*Math.PI/ Constants.NUMSTEPS);
         float rep = (float) (2*Math.PI/ Constants.REPEAT);
@@ -209,10 +208,11 @@ class GraphicsContentPanel extends JPanel {
         //draw curve along great circle
         for(float t = 0; t <= delta; t = t + step){
 
-            Vector4d ae = getCartesian(t,0).rotate();
-            Vector2d ae2d = p.multiVec(ae);
+            Vector3d cur = getCartesian(t,0).rotate(p_full, q_full);
+            Vector4d cur_hom = cur.getHomogeneous();
+            Vector2d cur_2d = p.multiVec(cur_hom);
 
-            g.fillOval(ae2d.roundX(), ae2d.roundY(), 4, 4);
+            g.fillOval(cur_2d.roundX(), cur_2d.roundY(), 4, 4);
         }
     }
 
