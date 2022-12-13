@@ -12,7 +12,7 @@ public abstract class Animation {
 
     public void start() {
 
-        // open new thread for time measurement
+        // open new thread for  time measurement
         ApplicationTime applicationTimeThread = new ApplicationTime();
         applicationTimeThread.start();
         FrameUpdater frameUpdater = new FrameUpdater(createFrames(applicationTimeThread));
