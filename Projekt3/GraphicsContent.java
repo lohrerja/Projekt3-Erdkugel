@@ -1,6 +1,7 @@
 package Projekt3;
 
 import javax.swing.*;
+import javax.swing.text.Position;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -35,13 +36,14 @@ public class GraphicsContent extends Animation{
 class GraphicsContentPanel extends JPanel {
 
     private final ApplicationTime t;
+    public double time;
     public GraphicsContentPanel(ApplicationTime thread) {this.t=thread;}
     public Dimension getPreferredSize() { return new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);}
 
     protected void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        double time = t.getTimeInSeconds();
+        time = t.getTimeInSeconds();
         Graphics2D g2d;
         g2d = (Graphics2D) g;
 
@@ -96,7 +98,7 @@ class GraphicsContentPanel extends JPanel {
 
         float step = (float) (2*Math.PI/ Constants.NUMSTEPS);
         float rep = (float) (2*Math.PI/ Constants.REPEAT);
-        int r = 200;
+
 
         //phi = horizontal; tet = vertical
 
@@ -171,7 +173,7 @@ class GraphicsContentPanel extends JPanel {
 
         //coordinats
 
-        double[] posVector = f(time);
+
 
         g.setColor(Color.RED);
 
@@ -200,7 +202,7 @@ class GraphicsContentPanel extends JPanel {
 
         //compute angle delta between P and Q
         float delta = getAngle(p_full,q_full);
-        System.out.println(delta);
+        //System.out.println(delta);
 
         // get distance between p and q along great circle
         float distance = (float) (Constants.RADIUS * delta);
@@ -211,9 +213,17 @@ class GraphicsContentPanel extends JPanel {
             Vector3d cur = getCartesian(t,0).rotate(p_full, q_full, t);
             Vector4d cur_hom = cur.getHomogeneous();
             Vector2d cur_2d = p.multiVec(cur_hom);
+            double[] posVector = f(time, cur_2d.roundX(), cur_2d.roundY());
 
-            g.fillOval(cur_2d.roundX(), cur_2d.roundY(), 4, 4);
+            //g.fillOval(cur_2d.roundX(), cur_2d.roundY(), 4, 4);
+            DrawMovingCircle(g, Color.RED, cur_2d.roundX(), cur_2d.roundY(), 4, (int) posVector[0], (int) posVector[1]);
+            //todo for schleife für zwischen werte von p nach q
         }
+    }
+
+    private void DrawMovingCircle(Graphics g, Color c, int x, int y, int size, int speedX, int speedY) {
+        g.setColor(c);
+        g.fillOval(x + (int) (time * speedX), y + (int) (time * speedY), size, size);
     }
 
     private float getAngle(Vector3d p, Vector3d q) {
@@ -229,27 +239,16 @@ class GraphicsContentPanel extends JPanel {
     }
 
 
-    double[] f(double t) {
-
-        Projectionmatrix p = new Projectionmatrix(135.0, (float) (1.0f/Math.sqrt(2.0f)));
-        float step = (float) (Math.PI/ Constants.NUMSTEPS);
-        float rep = (float) (Math.PI/ Constants.REPEAT);
-        int r = 200;
+    double[] f(double t, float X, float Y) {
 
         double[] result = new double[2];
-        for(float phi = 0; phi <= Math.PI; phi = phi + rep){
-            for(float tet = 0; tet <= Math.PI; tet = tet + step){
-                Vector4d e = new Vector4d((float) (Math.cos(tet) * Math.cos(phi)), (float) (Math.cos(tet) * Math.sin(phi)), (float) (Math.sin(tet)), 1);
 
-                Vector2d e2d = p.multiVec(e);
+                result[0] = X + 10 * Math.cos(t);//desides horizontal
+                result[1] = Y + 10 * Math.sin(t);//desides vertical
 
-                result[0] = e2d.roundX() + e2d.roundY() * Math.cos(t);//desides horizontal
-                result[1] = e2d.roundX() + e2d.roundY() * Math.sin(t);//desides vertical
-            }
-        }
         return result;
     }
 
-    }
+}
 
 

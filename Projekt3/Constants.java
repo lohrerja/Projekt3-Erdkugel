@@ -18,4 +18,6 @@ public class Constants {
     public static double REPEAT = 6;
 
     public static double RADIUS = 200;
+
+    public static float SPEEDADJUST = (float) (Math.PI / 2);
 }
