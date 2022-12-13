@@ -13,9 +13,9 @@ public class Constants {
 
     public static double TIMESCALE = 1.0;
 
-    public static double NUMSTEPS = 100;
+    public static double NUMSTEPS = 200;
 
-    public static double REPEAT = 10;
+    public static double REPEAT = 6;
 
-    public static double RADIUS = 500;
+    public static double RADIUS = 200;
 }

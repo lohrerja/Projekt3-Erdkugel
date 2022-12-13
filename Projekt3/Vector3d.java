@@ -29,39 +29,16 @@ public class Vector3d{
         return x*other.x + y*other.y + z*other.z;
     }
 
-    public Vector3d rotate(Vector3d p, Vector3d q){
+    public Vector3d rotate(Vector3d p, Vector3d q, float t){
         //define rotation matrix columns
         Vector3d p_hat = p.div(p.abs());
         Vector3d n_hat = p.cross(q).div((p.cross(q)).abs());
         Vector3d u_hat = n_hat.cross(p_hat).div((n_hat.cross(p_hat)).abs());
-        //TODO create Matrix from columns
         //TODO multiply matrix with this vector
+        Vector3d cos_t= new Vector3d((float) (Constants.RADIUS * Math.cos(t) * p_hat.x), (float) (Constants.RADIUS * Math.cos(t) * p_hat.y), (float) (Constants.RADIUS * Math.cos(t) * p_hat.z));
+        Vector3d sin_t = new Vector3d((float) (Constants.RADIUS * Math.sin(t) * u_hat.x), (float) (Constants.RADIUS * Math.sin(t) * u_hat.y), (float) (Constants.RADIUS * Math.sin(t) * u_hat.z));
 
-        public Vector3d doubleCross(){
-            Vector3d docr = Constants.RADIUS * Math.cos(t) * p_hat + Constants.RADIUS * Math.sin(t) * u_hat;
-            return docr;
-        }
-
-    }
-    public Vector3d multiply(Matrix p){
-        Vector3d w = new Vector3d(0,0,0);
-        int i;
-        int j;
-        for (i = 0, i<p.row, i++){
-            for (j = 0, j<p.col, j++){
-                w.vector[i] = multiplyindeces(w,i);
-            }
-        }
-        return w;
-    }
-
-    public float multiplyindeces(Vector3d w, int i){
-        float index = 0;
-        assert p.col == 1;
-        for (int k = 0; k < p.col; k++){
-            index += p.m[i][k] * w.vector[k];
-        }
-        return index;
+        return new Vector3d(cos_t.x + sin_t.x, cos_t.y + sin_t.y, cos_t.z + sin_t.z);
     }
 
     private Vector3d cross(Vector3d other) {

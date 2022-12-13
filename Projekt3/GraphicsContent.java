@@ -177,7 +177,7 @@ class GraphicsContentPanel extends JPanel {
 
         //point P
         float P_long = 1.0f;
-        float P_lati = 1.0f;
+        float P_lati = 0.0f;
 
         Vector3d p_full = getCartesian( P_long, P_lati);
         Vector4d p_homogeneous = p_full.getHomogeneous();
@@ -188,7 +188,7 @@ class GraphicsContentPanel extends JPanel {
 
         //point Q
         float q_long = 0.0f;
-        float q_lati = 0.0f;
+        float q_lati = 1.5f;
 
         Vector3d q_full = getCartesian( q_long, q_lati);
         Vector4d q_homogeneous = q_full.getHomogeneous();
@@ -208,7 +208,7 @@ class GraphicsContentPanel extends JPanel {
         //draw curve along great circle
         for(float t = 0; t <= delta; t = t + step){
 
-            Vector3d cur = getCartesian(t,0).rotate(p_full, q_full);
+            Vector3d cur = getCartesian(t,0).rotate(p_full, q_full, t);
             Vector4d cur_hom = cur.getHomogeneous();
             Vector2d cur_2d = p.multiVec(cur_hom);
 
