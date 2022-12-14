@@ -15,7 +15,7 @@ public class Constants {
 
     public static double NUMSTEPS = 200;
 
-    public static double REPEAT = 6;
+    public static double REPEAT = 14; //better if even number not ode one
 
     public static double RADIUS = 200;
 

@@ -31,13 +31,13 @@ public class Projectionmatrix extends Matrix{
         Vector2d u = new Vector2d(0,0);
         for(int i = 0; i < this.p.row; i++) {
             for (int j = 0; j < this.p.col; j++) {
-                u.vector[i] = multiplyMatricesIndeces(v, i); //interim step for multiplication
+                u.vector[i] = multiplyMatricesIndexes(v, i); //interim step for multiplication
             }
         }
         return u;
     }
 
-    public float multiplyMatricesIndeces(Vector4d v, int i) {       //method for multiplication for Indeces
+    public float multiplyMatricesIndexes(Vector4d v, int i) {       //method for multiplication for Indeces
         float index = 0;
         assert this.p.col == 4;
         for (int k = 0; k < this.p.col; k++){

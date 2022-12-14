@@ -115,7 +115,7 @@ class GraphicsContentPanel extends JPanel {
 
         //horizontal
         for(float phi = 0; phi <= 2*Math.PI; phi = phi + step){
-            for(float tet = -0.5f; tet <= 0.5f*Math.PI; tet = tet + rep){
+            for(float tet = (float) (-0.5f * Math.PI); tet <= 0.5f * Math.PI; tet = tet + rep){
                 Vector3d hor = getCartesian(phi,tet);
                 Vector4d hor_hom = hor.getHomogeneous();
                 Vector2d ver_2d = p.multiVec(hor_hom);
@@ -137,21 +137,10 @@ class GraphicsContentPanel extends JPanel {
 
 
         //in front
-
-        g.setColor(Color.BLUE);
-        for(float phi = (float) (-0.3f*Math.PI); phi <= 0.7f*Math.PI; phi = phi + step){
-
-            Vector3d aefro = getCartesian(phi, 0);
-            Vector4d aefro_hom = aefro.getHomogeneous();
-            Vector2d aefro_2d = p.multiVec(aefro_hom);
-
-            g.fillOval(aefro_2d.roundX(), aefro_2d.roundY(), 4, 4);
-        }
         g.setColor(Color.gray);
-
         //vertical
-        for(float phi = (float) (-1.0f/3.0f*Math.PI); phi <= 2.0f/3.0f*Math.PI; phi = phi + rep){//set it to -0.periot 3
-            for(float tet = (float) (-0.5f*Math.PI); tet <= 0.5f*Math.PI; tet = tet + step){
+        for(float phi = (float) (-2.0f / 7.0f * Math.PI); phi <= 4.0f / 7.0f * Math.PI; phi = phi + rep){//set it to -0.periot 3
+            for(float tet = (float) (-0.5f * Math.PI); tet <= 0.5f * Math.PI; tet = tet + step){
                 Vector3d verfro = getCartesian(phi, tet);
                 Vector4d verfro_hom = verfro.getHomogeneous();
                 Vector2d verfro_2d = p.multiVec(verfro_hom);
@@ -161,14 +150,25 @@ class GraphicsContentPanel extends JPanel {
         }
 
         //horizontal
-        for(float phi = (float) (-0.3f*Math.PI); phi <= 0.7f*Math.PI; phi = phi + step){
-            for(float tet = -0.5f; tet <= 0.5f*Math.PI; tet = tet + rep){
+        for(float phi = (float) (-0.3f * Math.PI); phi <= 0.7f * Math.PI; phi = phi + step){
+            for(float tet = (float) (-0.5f * Math.PI); tet <= 0.5f * Math.PI; tet = tet + rep){
                 Vector3d horfro = getCartesian(phi, tet);
                 Vector4d horfro_hom = horfro.getHomogeneous();
                 Vector2d horfro_2d = p.multiVec(horfro_hom);
 
                 g.fillOval(horfro_2d.roundX(), horfro_2d.roundY(), 4, 4);
             }
+        }
+
+        //aequator
+        g.setColor(Color.BLUE);
+        for(float phi = (float) (-0.3f*Math.PI); phi <= 0.7f*Math.PI; phi = phi + step){
+
+            Vector3d aefro = getCartesian(phi, 0);
+            Vector4d aefro_hom = aefro.getHomogeneous();
+            Vector2d aefro_2d = p.multiVec(aefro_hom);
+
+            g.fillOval(aefro_2d.roundX(), aefro_2d.roundY(), 4, 4);
         }
 
         //coordinats
@@ -178,8 +178,8 @@ class GraphicsContentPanel extends JPanel {
         g.setColor(Color.RED);
 
         //point P
-        float P_long = 1.0f;
-        float P_lati = 0.0f;
+        float P_long = 1.5f;
+        float P_lati = -0.5f;
 
         Vector3d p_full = getCartesian( P_long, P_lati);
         Vector4d p_homogeneous = p_full.getHomogeneous();
@@ -189,8 +189,8 @@ class GraphicsContentPanel extends JPanel {
         g.drawString("P", p_draw.roundX() - 15, p_draw.roundY() - 15);
 
         //point Q
-        float q_long = 0.0f;
-        float q_lati = 1.5f;
+        float q_long = -1.5f;
+        float q_lati = 0.8f;
 
         Vector3d q_full = getCartesian( q_long, q_lati);
         Vector4d q_homogeneous = q_full.getHomogeneous();
@@ -215,11 +215,12 @@ class GraphicsContentPanel extends JPanel {
             Vector2d cur_2d = p.multiVec(cur_hom);
             double[] posVector = f(time, cur_2d.roundX(), cur_2d.roundY());
 
-            //g.fillOval(cur_2d.roundX(), cur_2d.roundY(), 4, 4);
-            DrawMovingCircle(g, Color.RED, cur_2d.roundX(), cur_2d.roundY(), 4, (int) posVector[0], (int) posVector[1]);
+            g.fillOval(cur_2d.roundX(), cur_2d.roundY(), 4, 4);
+            //DrawMovingCircle(g, Color.RED, cur_2d.roundX(), cur_2d.roundY(), 4, (int) posVector[0], (int) posVector[1]);
             //todo for schleife für zwischen werte von p nach q
         }
     }
+    
 
     private void DrawMovingCircle(Graphics g, Color c, int x, int y, int size, int speedX, int speedY) {
         g.setColor(c);
