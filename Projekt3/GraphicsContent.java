@@ -178,8 +178,8 @@ class GraphicsContentPanel extends JPanel {
         g.setColor(Color.RED);
 
         //point P
-        float P_long = 1.5f;
-        float P_lati = -0.5f;
+        float P_long = 0.5f;
+        float P_lati = -1.5f;
 
         Vector3d p_full = getCartesian( P_long, P_lati);
         Vector4d p_homogeneous = p_full.getHomogeneous();
@@ -189,8 +189,8 @@ class GraphicsContentPanel extends JPanel {
         g.drawString("P", p_draw.roundX() - 15, p_draw.roundY() - 15);
 
         //point Q
-        float q_long = -1.5f;
-        float q_lati = 0.8f;
+        float q_long = -1.0f;
+        float q_lati = 0.5f;
 
         Vector3d q_full = getCartesian( q_long, q_lati);
         Vector4d q_homogeneous = q_full.getHomogeneous();
@@ -207,24 +207,28 @@ class GraphicsContentPanel extends JPanel {
         // get distance between p and q along great circle
         float distance = (float) (Constants.RADIUS * delta);
 
-        //draw curve along great circle
-        for(float t = 0; t <= delta; t = t + step){
+        //todo buttons
+        double startTime = 2.0;//start button sets it on now
+        double endTime = 7.0;//stop button sets startime on a number that never starts
+        double duration = endTime - startTime;//slider to adjust speed through endtime
 
-            Vector3d cur = getCartesian(t,0).rotate(p_full, q_full, t);
+        //draw curve along great circle
+        for(float t = 0; t <= time-startTime; t = t + step){
+
+            float part = (float) (t/duration) * delta;
+
+            if (part > delta) {
+
+                part = delta;
+            }
+
+            Vector3d cur = rotate(p_full, q_full, part);
             Vector4d cur_hom = cur.getHomogeneous();
             Vector2d cur_2d = p.multiVec(cur_hom);
-            double[] posVector = f(time, cur_2d.roundX(), cur_2d.roundY());
 
             g.fillOval(cur_2d.roundX(), cur_2d.roundY(), 4, 4);
-            //DrawMovingCircle(g, Color.RED, cur_2d.roundX(), cur_2d.roundY(), 4, (int) posVector[0], (int) posVector[1]);
-            //todo for schleife für zwischen werte von p nach q
-        }
-    }
-    
 
-    private void DrawMovingCircle(Graphics g, Color c, int x, int y, int size, int speedX, int speedY) {
-        g.setColor(c);
-        g.fillOval(x + (int) (time * speedX), y + (int) (time * speedY), size, size);
+        }
     }
 
     private float getAngle(Vector3d p, Vector3d q) {
@@ -237,6 +241,22 @@ class GraphicsContentPanel extends JPanel {
         return new Vector3d((float) (RADIUS * Math.cos(theta) * Math.cos(phi)),
                 (float) (Constants.RADIUS * Math.cos(theta) * Math.sin(phi)),
                 (float) (Constants.RADIUS * Math.sin(theta)));
+    }
+
+    public Vector3d rotate(Vector3d p, Vector3d q, float t){
+        //define rotation matrix columns
+        Vector3d p_hat = p.div(p.abs());
+        Vector3d n_hat = p.cross(q).div((p.cross(q)).abs());
+        Vector3d u_hat = n_hat.cross(p_hat).div((n_hat.cross(p_hat)).abs());
+        //TODO multiply matrix with this vector
+        Vector3d cos_t= new Vector3d((float) (Constants.RADIUS * Math.cos(t) * p_hat.x),
+                (float) (Constants.RADIUS * Math.cos(t) * p_hat.y),
+                (float) (Constants.RADIUS * Math.cos(t) * p_hat.z));
+        Vector3d sin_t = new Vector3d((float) (Constants.RADIUS * Math.sin(t) * u_hat.x),
+                (float) (Constants.RADIUS * Math.sin(t) * u_hat.y),
+                (float) (Constants.RADIUS * Math.sin(t) * u_hat.z));
+
+        return new Vector3d(cos_t.x + sin_t.x, cos_t.y + sin_t.y, cos_t.z + sin_t.z);
     }
 
 
