@@ -22,6 +22,15 @@ public abstract class Animation {
         timer.scheduleAtFixedRate(frameUpdater, 100, 100);
 
     }
+    public void restart() {
+
+        // open new thread for  time measurement
+        ApplicationTime applicationTimeThread = new ApplicationTime();
+        applicationTimeThread.start();
+
+        //Include new thread in existing frame
+
+    }
     protected abstract ArrayList<JFrame> createFrames(ApplicationTime applicationTimeThread);
 
 }

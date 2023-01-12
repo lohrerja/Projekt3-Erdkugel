@@ -10,7 +10,7 @@ public class ApplicationTime extends Thread {
 	public long currentTime = 0;
 	public long formerTime = 0;
 	private double timeScale = Constants.TIMESCALE;
-	private final AtomicBoolean isPaused = new AtomicBoolean(false);
+	private final AtomicBoolean isPaused = new AtomicBoolean(true);
 	private final AtomicBoolean running = new AtomicBoolean(true);
 	
 	public ApplicationTime() {
@@ -60,13 +60,10 @@ public class ApplicationTime extends Thread {
 		}
 	}
 	
-	public void endThread() {
-		while(true) {
-			if(running.compareAndSet(running.get(), false))
-				this.interrupt(); //In case an interruptable method like Thread.sleep is being used
-				System.out.println("Application Time has been interrupted");
-				return;
-		}
+	public void resetTime() {
+		// stop and reset time
+		this.interrupt();
+		this.currentTime = 0;
 	}
 	
 }

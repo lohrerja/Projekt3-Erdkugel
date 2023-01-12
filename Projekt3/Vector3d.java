@@ -29,7 +29,6 @@ public class Vector3d{
         return x*other.x + y*other.y + z*other.z;
     }
 
-
     public Vector3d cross(Vector3d other) {
         return new Vector3d(y*other.z - other.y*z, z*other.x - other.z * x, x*other.y - other.x * y);
     }

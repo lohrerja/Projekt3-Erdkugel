@@ -4,11 +4,11 @@ import static Projekt3.Constants.WINDOW_HEIGHT;
 import static Projekt3.Constants.WINDOW_WIDTH;
 
 public class Projectionmatrix extends Matrix{
-    double a;
+    public double a;
 
-    float s1;
+    public float s1;
 
-    Matrix p;
+    public Matrix p;
     public Projectionmatrix(double a, float s1) {
         super(2, 4);
 
