@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import utils.ApplicationTime;
 
@@ -239,10 +240,33 @@ class GraphicsContentPanel extends JPanel {
         g.setColor(Color.RED);
 
         //point P
-        float P_long = 0.5f;
-        float P_lati = -1.5f;
+        float p_long = 0.5f;
+        float p_lati = -1.5f;
 
-        Vector3d p_full = Calculations.getCartesian(P_long, P_lati);
+        /*Scanner coordinates = new Scanner(System.in);
+
+        System.out.println("Enter Coordinates for P and Q:");
+
+        // Numerical input
+        float p_long = coordinates.nextFloat();
+        float p_lati = coordinates.nextFloat();
+
+        float q_long = coordinates.nextFloat();
+        float q_lati = coordinates.nextFloat();
+
+        // Output input by user
+        //JTextArea PQ= new JTextArea();
+        //this.add(PQ);
+        //this.setVisible(true);
+
+        System.out.println("X(p): " + p_long);
+        System.out.println("Y(p): " + p_lati);
+
+        System.out.println("X(q): " + q_long);
+        System.out.println("Y(q): " + q_lati);*/
+
+
+        Vector3d p_full = Calculations.getCartesian(p_long, p_lati);
         Vector4d p_homogeneous = p_full.getHomogeneous();
         Vector2d p_draw = p.multiVec(p_homogeneous);
 
@@ -268,7 +292,6 @@ class GraphicsContentPanel extends JPanel {
         // get distance between p and q along great circle
         float distance = (float) (Constants.RADIUS * delta);
 
-        //todo buttons
         double startTime = 0.0;//start button sets it on now
         double endTime = 7.0;//stop button sets startime on a number that never starts
         double duration = endTime - startTime;//slider to adjust speed through endtime

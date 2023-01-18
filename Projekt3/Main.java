@@ -9,7 +9,6 @@ public class Main {
         Animation animation = null;
         animation = new GraphicsContent();
         animation.start();
-
     }
 
 }
