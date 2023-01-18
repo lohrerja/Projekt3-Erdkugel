@@ -269,7 +269,7 @@ class GraphicsContentPanel extends JPanel {
         float distance = (float) (Constants.RADIUS * delta);
 
         //todo buttons
-        double startTime = 2.0;//start button sets it on now
+        double startTime = 0.0;//start button sets it on now
         double endTime = 7.0;//stop button sets startime on a number that never starts
         double duration = endTime - startTime;//slider to adjust speed through endtime
 
