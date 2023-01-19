@@ -21,18 +21,15 @@ public class Vector3d{
     public Vector4d getHomogeneous(){
         return new Vector4d(x,y,z,1.0f);
     }
-    public float abs(){
-        return (float) Math.sqrt(x*x + y*y + z*z);
-    }
-
     public float dot(Vector3d other){
         return x*other.x + y*other.y + z*other.z;
     }
-
+    public float abs(){
+        return (float) Math.sqrt(x*x + y*y + z*z);
+    }
     public Vector3d cross(Vector3d other) {
         return new Vector3d(y*other.z - other.y*z, z*other.x - other.z * x, x*other.y - other.x * y);
     }
-
     public Vector3d div(float quo) {
         return new Vector3d(x/quo, y/quo, z/quo);
     }

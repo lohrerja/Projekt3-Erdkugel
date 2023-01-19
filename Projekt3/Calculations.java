@@ -21,7 +21,7 @@ public class Calculations {
         Vector3d p_hat = p.div(p.abs());
         Vector3d n_hat = p.cross(q).div((p.cross(q)).abs());
         Vector3d u_hat = n_hat.cross(p_hat).div((n_hat.cross(p_hat)).abs());
-        //TODO multiply matrix with this vector
+
         Vector3d cos_t = new Vector3d((float) (Constants.RADIUS * Math.cos(t) * p_hat.x),
                 (float) (Constants.RADIUS * Math.cos(t) * p_hat.y),
                 (float) (Constants.RADIUS * Math.cos(t) * p_hat.z));
