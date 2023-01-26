@@ -95,6 +95,8 @@ class GraphicsContentPanel extends JPanel {
 
     private final ApplicationTime t;
     public double time;
+    public String p_name;
+    public String q_name;
     float p_long;
     float p_lati;
 
@@ -156,10 +158,21 @@ class GraphicsContentPanel extends JPanel {
 
         g.drawLine(begin2d.roundX(), begin2d.roundY(), z_point.roundX(), z_point.roundY());
 
+        g.setColor(Color.MAGENTA);
+        Vector4d nor = new Vector4d(0, 0, 0, 1);
+
+        Vector4d nor_end = new Vector4d(50, 30, 70, 1);
+        // get projection from projectionmatrix
+
+        Vector2d nor_point = p.multiVec(nor_end);
+        Vector2d nor2d = p.multiVec(nor);
+
+        g.drawLine(nor2d.roundX(), nor2d.roundY(), nor_point.roundX(), nor_point.roundY());
+
 
         // drawing operations should be done in this method
         //use same projectionmatrix as above: create a calculation class
-        g2d.setStroke(new BasicStroke(2.0f));
+        /*g2d.setStroke(new BasicStroke(2.0f));
 
         float step = (float) (2 * Math.PI / Constants.NUMSTEPS);
         float rep = (float) (2 * Math.PI / Constants.REPEAT);
@@ -167,16 +180,16 @@ class GraphicsContentPanel extends JPanel {
         //phi = horizontal; tet = vertical
 
         //vertical
-        for (float phi = 0; phi <= 2 * Math.PI; phi = phi + rep) {
+        for (float phi = (float) (-1.0f/2.0f * Math.PI); phi <= 1.0f/2.0f * Math.PI; phi = phi + rep) {
             for (float tet = 0; tet <= 2 * Math.PI; tet = tet + step) {
                 Vector3d ver = Calculations.getCartesian(phi, tet);
                 Vector4d ver_hom = ver.getHomogeneous();
                 Vector2d ver_2d = p.multiVec(ver_hom);
 
-                if (ver.x > 0){
-                    g.setColor(Color.gray);
-                } else {
+                if (tet > (5.0f/7.0f * Math.PI)) {
                     g.setColor(Color.lightGray);
+                } else {
+                    g.setColor(Color.gray);
                 }
 
                 g.fillOval(ver_2d.roundX(), ver_2d.roundY(), 4, 4);
@@ -207,7 +220,7 @@ class GraphicsContentPanel extends JPanel {
             Vector3d aequ = Calculations.getCartesian(phi, 0);
             Vector4d aequ_hom = aequ.getHomogeneous();
             Vector2d aequ_2d = p.multiVec(aequ_hom);
-            if (aequ.x > 0){
+            if (aequ.x > 0.5f){
                 g.setColor(Color.BLUE);
             } else {
                 g.setColor(Color.CYAN);
@@ -229,7 +242,7 @@ class GraphicsContentPanel extends JPanel {
         Vector2d p_draw = p.multiVec(p_homogeneous);
 
         g.fillOval(p_draw.roundX() - 5, p_draw.roundY() - 5, 10, 10);
-        g.drawString("P", p_draw.roundX() - 15, p_draw.roundY() - 15);
+        g.drawString(p_name, p_draw.roundX() - 15, p_draw.roundY() - 15);
 
         //point Q
         //float q_long = (float) (-1.0f * Math.PI);
@@ -240,7 +253,7 @@ class GraphicsContentPanel extends JPanel {
         Vector2d q_draw = p.multiVec(q_homogeneous);
 
         g.fillOval(q_draw.roundX() - 5, q_draw.roundY() - 5, 10, 10);
-        g.drawString("Q", q_draw.roundX() - 15, q_draw.roundY() - 15);
+        g.drawString(q_name, q_draw.roundX() - 15, q_draw.roundY() - 15);
 
 
         //compute angle delta between P and Q
@@ -275,28 +288,40 @@ class GraphicsContentPanel extends JPanel {
             }
             g.fillOval(cur_2d.roundX(), cur_2d.roundY(), 4, 4);
 
-        }
+        }*/
     }
 
     public void readPQ(){
         Scanner coordinates = new Scanner(System.in);
 
-        System.out.println("Enter Coordinates for P and Q:");
+        //todo fix the input for the names of the places
+        System.out.println("This animation shows a planes flight from one place to another." +
+                " Please enter 1. The name 2. the longitude 3. the latitude and then repeat for the second place.");
+
+        System.out.println("Enter longitude and latitude of P and Q:");
+
+
+        //Names of the places
+        this.p_name = coordinates.toString();
+        this.q_name = coordinates.toString();
 
         // Numerical input
-        this.p_long = coordinates.nextFloat();
-        this.p_lati = coordinates.nextFloat();
+        this.p_long = (float) (coordinates.nextFloat() / 180 * Math.PI);
+        this.p_lati = (float) (coordinates.nextFloat() / 180 * Math.PI);
 
-        this.q_long = coordinates.nextFloat();
-        this.q_lati = coordinates.nextFloat();
+        this.q_long = (float) (coordinates.nextFloat() / 180 * Math.PI);
+        this.q_lati = (float) (coordinates.nextFloat() / 180 * Math.PI);
 
         // Output input by user
         //JTextArea PQ= new JTextArea();
         //this.add(PQ);
         //this.setVisible(true);
+        System.out.println("Place P: " + p_name);
 
         System.out.println("X(p): " + p_long);
         System.out.println("Y(p): " + p_lati);
+
+        System.out.println("Place Q: " + q_name);
 
         System.out.println("X(q): " + q_long);
         System.out.println("Y(q): " + q_lati);
