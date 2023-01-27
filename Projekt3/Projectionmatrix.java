@@ -25,7 +25,7 @@ public class Projectionmatrix extends Matrix{
         this.p.m[0][3] = WINDOW_WIDTH / 2.0f;
         this.p.m[1][3] = WINDOW_HEIGHT / 2.0f;
     }
-//todo find normal of image plane
+    //todo find normal of image plane
     //todo use normal for perspective colouring
 
     public Vector2d multiVec(Vector4d v){

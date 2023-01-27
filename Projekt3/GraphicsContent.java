@@ -172,7 +172,7 @@ class GraphicsContentPanel extends JPanel {
 
         // drawing operations should be done in this method
         //use same projectionmatrix as above: create a calculation class
-        /*g2d.setStroke(new BasicStroke(2.0f));
+        g2d.setStroke(new BasicStroke(2.0f));
 
         float step = (float) (2 * Math.PI / Constants.NUMSTEPS);
         float rep = (float) (2 * Math.PI / Constants.REPEAT);
@@ -288,41 +288,31 @@ class GraphicsContentPanel extends JPanel {
             }
             g.fillOval(cur_2d.roundX(), cur_2d.roundY(), 4, 4);
 
-        }*/
+        }
     }
 
     public void readPQ(){
         Scanner coordinates = new Scanner(System.in);
 
-        //todo fix the input for the names of the places
-        System.out.println("This animation shows a planes flight from one place to another." +
-                " Please enter 1. The name 2. the longitude 3. the latitude and then repeat for the second place.");
+        System.out.println("This animation shows a planes flight from one place to another.");
 
-        System.out.println("Enter longitude and latitude of P and Q:");
-
-
-        //Names of the places
-        this.p_name = coordinates.toString();
-        this.q_name = coordinates.toString();
-
-        // Numerical input
-        this.p_long = (float) (coordinates.nextFloat() / 180 * Math.PI);
-        this.p_lati = (float) (coordinates.nextFloat() / 180 * Math.PI);
-
-        this.q_long = (float) (coordinates.nextFloat() / 180 * Math.PI);
-        this.q_lati = (float) (coordinates.nextFloat() / 180 * Math.PI);
-
-        // Output input by user
-        //JTextArea PQ= new JTextArea();
-        //this.add(PQ);
-        //this.setVisible(true);
+        System.out.println("Enter name of departure");
+        this.p_name = coordinates.next();
         System.out.println("Place P: " + p_name);
 
+        System.out.println("Enter longitude and latitude of your departure");
+        this.p_long = (float) (coordinates.nextFloat() / 180 * Math.PI);
+        this.p_lati = (float) (coordinates.nextFloat() / 180 * Math.PI);
         System.out.println("X(p): " + p_long);
         System.out.println("Y(p): " + p_lati);
 
+        System.out.println("Enter name of arrival");
+        this.q_name = coordinates.next();
         System.out.println("Place Q: " + q_name);
 
+        System.out.println("Enter longitude and latitude of your arrival:");
+        this.q_long = (float) (coordinates.nextFloat() / 180 * Math.PI);
+        this.q_lati = (float) (coordinates.nextFloat() / 180 * Math.PI);
         System.out.println("X(q): " + q_long);
         System.out.println("Y(q): " + q_lati);
     }
